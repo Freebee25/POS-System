@@ -1,3 +1,4 @@
+</div>
 <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -23,10 +24,10 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="vendor/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<script src="/vendor/AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="vendor/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="vendor/AdminLTE/dist/js/adminlte.min.js"></script>
+<script src="/vendor/AdminLTE/dist/js/adminlte.min.js"></script>
 </body>
 </html>

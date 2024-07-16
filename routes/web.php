@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/template', function () {
-    return view('template');
-});
+
 
 Route::get('/', function () {
-    return view('admin.layouts.wrapper');
+    $data = [
+        'content' => 'admin.dashboard.index'
+    ];
+    return view('admin.layouts.wrapper', $data);
 });
 
-Route::get('/hello', function () {
-    return ('Hello World');
+Route::prefix('/admin')->group(function(){
+    Route::resource('/user', AdminUserController::class);
 });
