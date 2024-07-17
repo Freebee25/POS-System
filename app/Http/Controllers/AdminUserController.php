@@ -59,6 +59,7 @@ class AdminUserController extends Controller
     public function show(string $id)
     {
         //
+        
     }
 
     /**
@@ -67,6 +68,11 @@ class AdminUserController extends Controller
     public function edit(string $id)
     {
         //
+        $data =  [
+        'user'    => User::find($id),
+        'content' => 'admin.user.create'
+        ];
+        return view('admin.layouts.wrapper', $data);
     }
 
     /**
@@ -75,6 +81,22 @@ class AdminUserController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $user = User::find($id);
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            // 'password' => 'required',
+            're_password' => 'same:password',
+        ]);
+        
+        if($request->password != '') {           
+            $data['password'] = Hash::make($request->password);
+        }else{
+            $data['password'] = $user->password;
+        }
+        
+        $user->update($data);
+        return redirect('/admin/user')->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -83,5 +105,8 @@ class AdminUserController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = User::find($id);
+        $user->delete();
+        return redirect('admin/user')->with('success', 'Data berhasil dihapus');
     }
 }

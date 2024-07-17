@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="container-fluid mt-2">
+    <div class="alert alert-success">Selamat Datang</div>
     <p> tampilan dashboard</p>
+</div>
 </body>
 </html>

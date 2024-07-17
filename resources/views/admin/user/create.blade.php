@@ -6,11 +6,17 @@
                 <div class="card-body">
                         <h4><b>Create Data</b></h4>
 
-                        <form action="/admin/user" method="POST">
+                        @isset($user)
+                            <form action="/admin/user/{{ $user->id }}" method="POST">
+                                @method('put')
+                        @else
+                            <form action="/admin/user" method="POST">
+                        @endisset
+
                             @csrf
                             <div class="form-group">
                                 <label for=""><b>Full Name</b></label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" aria-placeholder="Full Name">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" aria-placeholder="Full Name" value="{{ isset($user) ? $user->name : '' }}">
                                 @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -20,7 +26,7 @@
 
                             <div class="form-group">
                                 <label for=""><b>Email</b></label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" aria-placeholder="Email">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" aria-placeholder="Email" value="{{ isset($user) ? $user->email : "" }}">
                                 @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
