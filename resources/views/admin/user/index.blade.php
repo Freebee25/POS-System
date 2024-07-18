@@ -2,6 +2,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
+        <div class="card-title p-4">
+                <h4><b>{{ $title }}</b></h4>
+            </div>
         <div class="card-body">
             <a href="/admin/user/create" class="btn btn-primary"><i class="fas fa-plus">Tambah</i></a>
 

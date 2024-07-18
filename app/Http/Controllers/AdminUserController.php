@@ -15,6 +15,7 @@ class AdminUserController extends Controller
     {
         //
         $data =  [
+        'title'   => 'Management User',
         'users'   => User::get(), 
         'content' => 'admin.user.index'
         ];
