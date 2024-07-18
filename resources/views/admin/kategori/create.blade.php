@@ -6,11 +6,17 @@
             </div>
             <div class="card-body">
                 <hr>
+
+                @isset($kategori)
+                <form action="/admin/kategori/{{ $kategori->id }}" method="POST">
+                    @method('PUT')
+                @else
                 <form action="/admin/kategori" method="POST">
+                @endisset
                 
                 @csrf
                     <label for="">Nama Kategori</label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Kategori" >
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Kategori" value="{{ isset ($kategori) ? $kategori->name : old('name') }}">
                     @error('name')
                         <div class="invalid-feedback">
                             {{ $message }}
