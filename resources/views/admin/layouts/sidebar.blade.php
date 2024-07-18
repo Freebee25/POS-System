@@ -75,6 +75,15 @@
           </li>
 
           <li class="nav-item">
+            <a href="/admin/produk" class="nav-link {{ Request::is('admin/produk*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+               produk
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="/admin/user" class="nav-link {{ Request::is('admin/user*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
               <p>
