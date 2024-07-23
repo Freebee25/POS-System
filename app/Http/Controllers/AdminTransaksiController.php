@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class AdminTransaksiController extends Controller
             'content'   => 'admin/transaksi/index'
         ];
         return view('admin.layouts.wrapper', $data);
-        
+
     }
 
     /**
@@ -28,8 +29,14 @@ class AdminTransaksiController extends Controller
     public function create()
     {
         //
+        $produk    = Produk::get();
+
+        $produk_id = request('produk_id');
+        $p_detail = Produk::find($produk_id);
         $data = [
             'title'     => 'Tambah Transaksi',
+            'produk'    => $produk,
+            'p_detail'  => $p_detail,
             'content'   => 'admin/transaksi/create'
         ];
         return view('admin.layouts.wrapper', $data);

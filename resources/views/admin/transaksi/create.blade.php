@@ -5,36 +5,44 @@
                 <h4><b>{{ $title }}</b></h4>
             </div>
             <div class="card-body">
-                
+
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="">Kode Produk</label>
                     </div>
                     <div class="col-md-8">
-                        <select name="produk_id" class="form-control" id="">
-                            <option value="">--- Nama Produk ---</option>
-                            <!-- Tambahkan opsi lainnya di sini -->
-                        </select>    
-                    </div>               
-                </div>   
-                
+                        <form method="GET">
+                            <div class="d-flex">
+                                <select name="produk_id" class="form-control" id="">
+                                    <option value="">--- {{ isset($p_detail) ? $p_detail->name : 'Nama Produk'}} ---</option>
+                                    @foreach ( $produk as $item )
+                                    <option value="{{$item->id}}"> {{$item->id.' - '. $item->name}} </option>
+                                    @endforeach
+                                    <!-- Tambahkan opsi lainnya di sini -->
+                                </select>
+                                <button type="submit" class="btn btn-primary">Pilih</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="">Nama Produk</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" name="nama_produk" id="">
-                    </div>               
-                </div>   
+                        <input type="text" value="{{ isset($p_detail) ? $p_detail->name : ''}}" class="form-control" disabled name="nama_produk" id="">
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="">Harga Produk</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" name="harga_produk" id="">
-                    </div>               
-                </div>   
+                        <input type="text" value="{{ isset($p_detail) ? $p_detail->harga : ''}}" class="form-control" disabled name="harga_produk" id="">
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
@@ -46,25 +54,25 @@
                             <input type="number" class="form-control mx-2" name="jumlah_produk">
                             <button type="button" class="btn btn-primary"><i class="fas fa-plus"></i></button>
                         </div>
-                    </div>               
-                </div>   
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4"></div>
                     <div class="col-md-8">
                         <h5>Subtotal: Rp. 15000</h5>
-                    </div>               
-                </div>   
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4"></div>
                     <div class="col-md-8">
                         <a href="/admin/transaksi" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</a>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
-                    </div>               
-                </div>   
-                               
-            </div>           
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
