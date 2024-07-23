@@ -18,7 +18,6 @@
                                     @foreach ( $produk as $item )
                                     <option value="{{$item->id}}"> {{$item->id.' - '. $item->name}} </option>
                                     @endforeach
-                                    <!-- Tambahkan opsi lainnya di sini -->
                                 </select>
                                 <button type="submit" class="btn btn-primary">Pilih</button>
                             </div>
@@ -26,52 +25,60 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="">Nama Produk</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" value="{{ isset($p_detail) ? $p_detail->name : ''}}" class="form-control" disabled name="nama_produk" id="">
-                    </div>
-                </div>
+                <form action="/admin/transaksi/detail/create" method="POST">
+                    @csrf
 
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="">Harga Produk</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" value="{{ isset($p_detail) ? $p_detail->harga : ''}}" class="form-control" disabled name="harga_produk" id="">
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="">Jumlah Produk</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="d-flex">
-                            <a href="?produk_id={{request('produk_id')}}&act=min&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-minus"></i></a>
-                            <input type="number" value="{{$jumlah_produk}}" class="form-control mx-2" name="jumlah_produk">
-                            <a href="?produk_id={{request('produk_id')}}&act=plus&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-
+                    <input type="hidden" name="transaksi_id" value="{{ Request::segment(3)}}">
+                    <input type="hidden" name="produk_id" value="{{ isset($p_detail) ? $p_detail->id : ''}}">
+                    <input type="hidden" name="produk_name" value="{{isset ($p_detail) ? $p_detail->name : ''}}">
+                    <input type="hidden" name="subtotal" value="{{$subtotal}}">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="">Nama Produk</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" value="{{ isset($p_detail) ? $p_detail->name : ''}}" class="form-control" disabled name="nama_produk" id="">
                         </div>
                     </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-8">
-                        <h5>Subtotal: Rp. {{$subtotal}}</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="">Harga Produk</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" value="{{ isset($p_detail) ? $p_detail->harga : ''}}" class="form-control" disabled name="harga_produk" id="">
+                        </div>
                     </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-8">
-                        <a href="/admin/transaksi" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</a>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="">Jumlah Produk</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="d-flex">
+                                <a href="?produk_id={{request('produk_id')}}&act=min&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-minus"></i></a>
+                                <input type="number" value="{{$jumlah_produk}}" class="form-control mx-2" name="jumlah_produk">
+                                <a href="?produk_id={{request('produk_id')}}&act=plus&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8">
+                            <h5>Subtotal: Rp. {{$subtotal}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8">
+                            <a href="/admin/transaksi" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</a>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
+                        </div>
+                    </div>
+                </form>
 
             </div>
         </div>
@@ -84,25 +91,27 @@
         </div>
         <div class="card-body">
             <table class="table">
-                <thead>
                     <tr>
                         <th>No</th>
                         <th>Nama Produk</th>
                         <th>Jumlah Produk</th>
+                        <th>Subtotal</th>
                         <th>#</th>
                     </tr>
-                </thead>
-                <tbody>
+
+                    @foreach ($transaksi_detail as $item )
+
+
                     <tr>
-                        <td>1</td>
-                        <td>Mi Goreng</td>
-                        <td>2</td>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{ $item->produk_name}}</td>
+                        <td>{{$item->jumlah_produk}}</td>
+                        <td>{{$item->subtotal}}</td>
                         <td>
                             <a href="#" class="text-danger"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
-                    <!-- Tambahkan baris lainnya di sini -->
-                </tbody>
+                    @endforeach
             </table>
             <a href="#" class="btn btn-success"><i class="fas fa-check"></i> Sukses</a>
             <a href="#" class="btn btn-warning"><i class="fas fa-hourglass-half"></i> Pending</a>

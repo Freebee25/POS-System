@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
 
 class AdminTransaksiController extends Controller
@@ -29,34 +30,13 @@ class AdminTransaksiController extends Controller
     public function create()
     {
         //
-        $produk    = Produk::get();
-
-        $produk_id = request('produk_id');
-        $p_detail = Produk::find($produk_id);
-
-        $act    = request('act');
-        $jumlah_produk = request('jumlah_produk');
-        if($act=='min') {
-            if ($jumlah_produk <= 1) {
-                $jumlah_produk = 1;
-            } else {
-                $jumlah_produk = $jumlah_produk - 1;
-            }
-        }else{
-            $jumlah_produk = $jumlah_produk + 1;
-        }
-
-        $subtotal = $jumlah_produk * $p_detail->harga;
-
         $data = [
-            'title'     => 'Tambah Transaksi',
-            'produk'    => $produk,
-            'p_detail'  => $p_detail,
-            'jumlah_produk' => $jumlah_produk,
-            'subtotal'  => $subtotal,
-            'content'   => 'admin/transaksi/create'
+            'user_id'   => auth()->user()->id,
+            'kasir_name'   => auth()->user()->name,
+            'total'     => 0
         ];
-        return view('admin.layouts.wrapper', $data);
+        $transaksi = Transaksi::create($data);
+        return redirect('/admin/transaksi/'.$transaksi->id . '/edit');
     }
 
     /**
@@ -81,6 +61,40 @@ class AdminTransaksiController extends Controller
     public function edit(string $id)
     {
         //
+        $produk    = Produk::get();
+
+        $produk_id = request('produk_id');
+        $p_detail = Produk::find($produk_id);
+
+        $transaksi_detail = TransaksiDetail::whereTransaksiId($id)->get();
+
+        $act    = request('act');
+        $jumlah_produk = request('jumlah_produk');
+        if($act=='min') {
+            if ($jumlah_produk <= 1) {
+                $jumlah_produk = 1;
+            } else {
+                $jumlah_produk = $jumlah_produk - 1;
+            }
+        }else{
+            $jumlah_produk = $jumlah_produk + 1;
+        }
+
+        $subtotal = 0;
+        if ($p_detail) {
+            $subtotal = $jumlah_produk * $p_detail->harga;
+        }
+
+        $data = [
+            'title'     => 'Tambah Transaksi',
+            'produk'    => $produk,
+            'p_detail'  => $p_detail,
+            'jumlah_produk' => $jumlah_produk,
+            'subtotal'  => $subtotal,
+            'transaksi_detail'  => $transaksi_detail,
+            'content'   => 'admin/transaksi/create'
+        ];
+        return view('admin.layouts.wrapper', $data);
     }
 
     /**
