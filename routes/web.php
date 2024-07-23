@@ -38,6 +38,8 @@ Route::prefix('/admin')->group(function(){
     return view('admin.layouts.wrapper', $data);
     });
 
+    Route::get('/transaksi/detail/selesai/{id}', [AdminTransaksiDetailController::class, 'done']);
+    Route::get('/transaksi/detail/delete', [AdminTransaksiDetailController::class, 'delete']);
     Route::post('/transaksi/detail/create', [AdminTransaksiDetailController::class, 'create']);
     Route::resource('/transaksi', AdminTransaksiController::class);
     Route::resource('/produk',AdminProdukController::class);

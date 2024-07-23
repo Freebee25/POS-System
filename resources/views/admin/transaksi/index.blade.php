@@ -5,7 +5,7 @@
                 <h4><b>{{ $title }}</b></h4>
             </div>
             <div class="card-body">
-                
+
                 <a href="/admin/transaksi/create" class="btn btn-primary mb-2"><i class="fas fa-plus">Tambah</i></a>
 
                 <table class="table">
@@ -17,7 +17,7 @@
                     @foreach ($transaksi as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->created_at }}</td>
                         <td><div class="d-flex">
                   <a href="/admin/transaksi/{{ $item->id }}/edit" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
                     <form action="/admin/transaksi/{{ $item->id }}" method="POST">

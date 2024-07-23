@@ -17,7 +17,7 @@ class AdminTransaksiController extends Controller
         //
         $data = [
             'title'     => 'Management Transaksi',
-            'transaksi' => Transaksi::paginate(10),
+            'transaksi' => Transaksi::orderBy('created_at', 'DESC')->paginate(10),
             'content'   => 'admin/transaksi/index'
         ];
         return view('admin.layouts.wrapper', $data);

@@ -108,12 +108,12 @@
                         <td>{{$item->jumlah_produk}}</td>
                         <td>{{'Rp. '.format_rupiah($item->subtotal)}}</td>
                         <td>
-                            <a href="#" class="text-danger"><i class="fas fa-times"></i></a>
+                            <a href="/admin/transaksi/detail/delete?id={{$item->id}}" class="text-danger"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
                     @endforeach
             </table>
-            <a href="#" class="btn btn-success"><i class="fas fa-check"></i> Sukses</a>
+            <a href="/admin/transaksi/detail/selesai/{{Request::segment(3)}}" class="btn btn-success"><i class="fas fa-check"></i> Sukses</a>
             <a href="#" class="btn btn-warning"><i class="fas fa-hourglass-half"></i> Pending</a>
         </div>
     </div>
