@@ -50,9 +50,10 @@
                     </div>
                     <div class="col-md-8">
                         <div class="d-flex">
-                            <button type="button" class="btn btn-primary"><i class="fas fa-minus"></i></button>
-                            <input type="number" class="form-control mx-2" name="jumlah_produk">
-                            <button type="button" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+                            <a href="?produk_id={{request('produk_id')}}&act=min&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-minus"></i></a>
+                            <input type="number" value="{{$jumlah_produk}}" class="form-control mx-2" name="jumlah_produk">
+                            <a href="?produk_id={{request('produk_id')}}&act=plus&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+
                         </div>
                     </div>
                 </div>
@@ -60,7 +61,7 @@
                 <div class="row mb-3">
                     <div class="col-md-4"></div>
                     <div class="col-md-8">
-                        <h5>Subtotal: Rp. 15000</h5>
+                        <h5>Subtotal: Rp. {{$subtotal}}</h5>
                     </div>
                 </div>
 
