@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class AdminTransaksiDetailController extends Controller
     $transaksi_id = $request->transaksi_id;
 
     $td = TransaksiDetail::whereProdukId($produk_id)->whereTransaksiId($transaksi_id)->first();
-
+    $transaksi = Transaksi::find($transaksi_id);
     if($td == null){
 
         $data = [
@@ -25,13 +26,27 @@ class AdminTransaksiDetailController extends Controller
             'subtotal' => $request->subtotal,
         ];
         TransaksiDetail::create($data);
+
+        $dt = [
+            'total' =>$request->subtotal + $transaksi->total
+        ];
+        $transaksi->update($dt);
     } else {
         $data = [
             'jumlah_produk' => $td->jumlah_produk + $request->jumlah_produk,
             'subtotal' => $request->subtotal + $td->subtotal,
         ];
         $td->update($data);
+
+        $dt = [
+            'total' =>$request->subtotal + $transaksi->total
+        ];
+        $transaksi->update($dt);
     }
     return redirect('/admin/transaksi/'. $transaksi_id . '/edit');
    }
+
+//    function delete() {
+//     $id = request($id);
+//    }
 }

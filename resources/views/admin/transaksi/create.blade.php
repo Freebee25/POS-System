@@ -67,7 +67,7 @@
                     <div class="row mb-3">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <h5>Subtotal: Rp. {{$subtotal}}</h5>
+                            <h5>Subtotal: Rp. {{format_rupiah($subtotal)}}</h5>
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
                         <td>{{$loop->iteration}}</td>
                         <td>{{ $item->produk_name}}</td>
                         <td>{{$item->jumlah_produk}}</td>
-                        <td>{{$item->subtotal}}</td>
+                        <td>{{'Rp. '.format_rupiah($item->subtotal)}}</td>
                         <td>
                             <a href="#" class="text-danger"><i class="fas fa-times"></i></a>
                         </td>
@@ -125,19 +125,21 @@
                     <h4><b>Hitung Kembalian</b></h4>
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="total">Total</label>
-                        <input type="number" name="total" class="form-control" id="total">
-                    </div>
-                    <div class="form-group">
-                        <label for="bayar">Bayar</label>
-                        <input type="number" name="bayar" class="form-control" id="bayar">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Hitung</button>
+                    <form action="" method="GET">
+                        <div class="form-group">
+                            <label for="total">Total</label>
+                            <input type="number" value="{{$transaksi->total}}" name="total" class="form-control" id="total">
+                        </div>
+                        <div class="form-group">
+                            <label for="bayar">Bayar</label>
+                            <input type="number" value="{{request('bayar')}}" name="bayar" class="form-control" id="bayar">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Hitung</button>
+                    </form>
                     <hr>
                     <div class="form-group">
                         <label for="kembalian">Uang Kembalian</label>
-                        <input type="number" disabled name="kembalian" class="form-control" id="kembalian">
+                        <input type="number" value="{{format_rupiah($kembalian)}}" disabled name="kembalian" class="form-control" id="kembalian">
                     </div>
                 </div>
             </div>

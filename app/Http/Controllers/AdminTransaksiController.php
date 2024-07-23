@@ -85,6 +85,10 @@ class AdminTransaksiController extends Controller
             $subtotal = $jumlah_produk * $p_detail->harga;
         }
 
+        $transaksi = Transaksi::find($id);
+        $bayar = request('bayar');
+        $kembalian = $bayar - $transaksi->total;
+
         $data = [
             'title'     => 'Tambah Transaksi',
             'produk'    => $produk,
@@ -92,6 +96,8 @@ class AdminTransaksiController extends Controller
             'jumlah_produk' => $jumlah_produk,
             'subtotal'  => $subtotal,
             'transaksi_detail'  => $transaksi_detail,
+            'transaksi' => $transaksi,
+            'kembalian' => $kembalian,
             'content'   => 'admin/transaksi/create'
         ];
         return view('admin.layouts.wrapper', $data);
