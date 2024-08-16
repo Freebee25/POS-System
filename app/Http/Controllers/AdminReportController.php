@@ -23,12 +23,11 @@ class AdminReportController extends Controller
         }
 
         $transaksi = $query->orderBy('created_at', 'DESC')->paginate(10);
-        $total_penjualan = $query->sum('total'); // Hitung total penjualan
-
+        $total_penjualan = $query->sum('total'); 
         $data = [
             'title'           => 'Laporan Transaksi',
             'transaksi'       => $transaksi,
-            'total_penjualan' => $total_penjualan, // Kirim total penjualan ke view
+            'total_penjualan' => $total_penjualan, 
             'start_date'      => $start_date,
             'end_date'        => $end_date,
             'content'         => 'admin/report/index'
