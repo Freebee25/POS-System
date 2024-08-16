@@ -87,11 +87,20 @@
             <a href="/admin/produk" class="nav-link {{ Request::is('admin/produk*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-list"></i>
               <p>
-               produk
+               Produk
               </p>
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="/admin/report" class="nav-link {{ Request::is('admin/report*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+               Rekap Penjualan
+              </p>
+            </a>
+          </li>
+          
           <li class="nav-item">
             <a href="/admin/user" class="nav-link {{ Request::is('admin/user*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
