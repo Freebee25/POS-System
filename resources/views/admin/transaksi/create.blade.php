@@ -113,8 +113,8 @@
                     </tr>
                     @endforeach
             </table>
-            <a href="/admin/transaksi/detail/selesai/{{Request::segment(3)}}" class="btn btn-success"><i class="fas fa-check"></i> Sukses</a>
-            <a href="#" class="btn btn-warning"><i class="fas fa-hourglass-half"></i> Pending</a>
+            <a href="/admin/transaksi/detail/selesai/{{Request::segment(3)}}" class="btn btn-success"><i class="fas fa-check"></i> Selesai</a>
+            <a href="#" class="btn btn-warning"><i class="fas fa-print"></i> Print</a>
         </div>
     </div>
 </div>
