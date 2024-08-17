@@ -33,7 +33,7 @@
                 </form>
 
                 <table class="table table-bordered mt-4">
-                    <thead>
+                    <th>
                         <tr>
                             <th>No</th>
                             <th>ID Transaksi</th>
@@ -41,7 +41,7 @@
                             <th>Total</th>
                             <th>Tanggal Transaksi</th>
                         </tr>
-                    </thead>
+                    </th>
                     <tbody>
                         @foreach($transaksi as $index => $item)
                         <tr>
