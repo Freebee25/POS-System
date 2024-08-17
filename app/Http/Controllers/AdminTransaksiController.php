@@ -6,7 +6,7 @@ use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class AdminTransaksiController extends Controller
 {
     /**
@@ -15,9 +15,14 @@ class AdminTransaksiController extends Controller
     public function index()
     {
         //
+        $today = Carbon::today();
+        $transaksi = Transaksi::whereDate('created_at', $today)
+                              ->orderBy('created_at', 'DESC')
+                              ->paginate(10);   
+        
         $data = [
-            'title'     => 'Management Transaksi',
-            'transaksi' => Transaksi::orderBy('created_at', 'DESC')->paginate(10),
+            'title'     => 'Manajemen Transaksi',
+            'transaksi' => $transaksi,
             'content'   => 'admin/transaksi/index'
         ];
         return view('admin.layouts.wrapper', $data);
