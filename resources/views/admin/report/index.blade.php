@@ -25,7 +25,12 @@
                             </button>
                         </div>
                         <div class="col">
-                            <a href="/admin/report/download" class="btn btn-success">
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-file"></i> Detail Transaksi
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="btn btn-success">
                                 <i class="fas fa-download"></i> Download
                             </a>
                         </div>

@@ -7,6 +7,7 @@
             <div class="card-body">
 
                 <a href="/admin/transaksi/create" class="btn btn-primary mb-2"><i class="fas fa-plus"></i> Tambah</a>
+                <p>Tanggal Hari ini : {{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
 
                 <table class="table table-bordered">
                     <thead>
