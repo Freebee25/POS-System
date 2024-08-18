@@ -121,6 +121,10 @@ class AdminTransaksiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //$user = User::find($id);
+        $transaksi = Transaksi::find($id);
+        
+        $transaksi->delete();
+        return redirect('admin/transaksi')->with('success', 'Data berhasil dihapus');
     }
 }
