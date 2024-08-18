@@ -122,13 +122,13 @@
 <div class="col-md-6 mb-4">
             <div class="card">
                 <div class="card-title p-4">
-                    <h4><b>Hitung Kembalian</b></h4>
+                    <h4><b>Kembalian</b></h4>
                 </div>
                 <div class="card-body">
                     <form action="" method="GET">
                         <div class="form-group">
                             <label for="total">Total</label>
-                            <input type="number" value="{{$transaksi->total}}" name="total" class="form-control" id="total">
+                            <input type="number" value="{{$transaksi->total}}" name="total" class="form-control" disabled id="total">
                         </div>
                         <div class="form-group">
                             <label for="bayar">Bayar</label>
