@@ -38,6 +38,20 @@ class AdminReportController extends Controller
 
         return view('admin.layouts.wrapper', $data);
     }
+    
+    // public function show($id)
+    // {
+    //     $transaksi = Transaksi::with('items.product', 'kasir')->findOrFail($id);
+
+    //     $data = [
+    //         'title' => 'Detail Transaksi',
+    //         'transaksi' => $transaksi,
+    //         'content' => 'admin.report.detail',
+    //     ];
+
+    //     return view('admin.layouts.wrapper', $data);
+    // }
+
 
     // public function download(Request $request)
     // {

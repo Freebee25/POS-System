@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminTransaksiDetailController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\AdminReportDetailController;
+use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,7 +43,7 @@ Route::prefix('/admin')->group(function(){
 
     Route::get('/transaksi/detail/selesai/{id}', [AdminTransaksiDetailController::class, 'done']);
     Route::get('/transaksi/detail/delete', [AdminTransaksiDetailController::class, 'delete']);
-    Route::get('/report/detail/{id}', [AdminReportDetailController::class, 'show'])->name('admin.report.detail');
+    Route::get('/report/detail/{id}', [AdminTransaksiDetailController::class, 'index'])->name('admin.report.detail');
     Route::post('/transaksi/detail/create', [AdminTransaksiDetailController::class, 'create']);
     Route::resource('/transaksi', AdminTransaksiController::class);
     Route::resource('/produk',AdminProdukController::class);

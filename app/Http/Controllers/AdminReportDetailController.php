@@ -11,9 +11,18 @@ class AdminReportDetailController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
         //
+        // $transaksi = Transaksi::with('items.product', 'kasir')->findOrFail($id);
+
+        // $data = [
+        //     'title' => 'Detail Transaksi ' . $id,
+        //     'transaksi' => $transaksi,
+        //     'content' => 'admin.report.detail',
+        // ];
+
+        // return view('admin.layouts.wrapper', $data);
     }
 
     /**
@@ -38,12 +47,6 @@ class AdminReportDetailController extends Controller
     public function show(string $id)
     {
         //
-        {
-        $transaksi = Transaksi::findOrFail($id);
-        $details = TransaksiDetail::where('transaksi_id', $id)->get();
-
-        return view('admin.report.detail', compact('transaksi', 'details'));
-    }
     }
 
     /**

@@ -6,6 +6,7 @@
             </div>
             <div class="card-body">
 
+                <!-- Form Pemilihan Produk -->
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="">Kode Produk</label>
@@ -15,7 +16,7 @@
                             <div class="d-flex">
                                 <select name="produk_id" class="form-control" id="">
                                     <option value="">--- {{ isset($p_detail) ? $p_detail->name : 'Nama Produk'}} ---</option>
-                                    @foreach ( $produk as $item )
+                                    @foreach ($produk as $item)
                                     <option value="{{$item->id}}"> {{$item->id.' - '. $item->name}} </option>
                                     @endforeach
                                 </select>
@@ -25,13 +26,16 @@
                     </div>
                 </div>
 
+                <!-- Form Input Detail Transaksi -->
                 <form action="/admin/transaksi/detail/create" method="POST">
                     @csrf
 
                     <input type="hidden" name="transaksi_id" value="{{ Request::segment(3)}}">
                     <input type="hidden" name="produk_id" value="{{ isset($p_detail) ? $p_detail->id : ''}}">
-                    <input type="hidden" name="produk_name" value="{{isset ($p_detail) ? $p_detail->name : ''}}">
+                    <input type="hidden" name="produk_name" value="{{isset($p_detail) ? $p_detail->name : ''}}">
                     <input type="hidden" name="subtotal" value="{{$subtotal}}">
+                    
+                    <!-- Nama Produk -->
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="">Nama Produk</label>
@@ -41,6 +45,7 @@
                         </div>
                     </div>
 
+                    <!-- Harga Produk -->
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="">Harga Produk</label>
@@ -50,6 +55,7 @@
                         </div>
                     </div>
 
+                    <!-- Jumlah Produk -->
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="">Jumlah Produk</label>
@@ -59,11 +65,11 @@
                                 <a href="?produk_id={{request('produk_id')}}&act=min&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-minus"></i></a>
                                 <input type="number" value="{{$jumlah_produk}}" class="form-control mx-2" name="jumlah_produk">
                                 <a href="?produk_id={{request('produk_id')}}&act=plus&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-
                             </div>
                         </div>
                     </div>
 
+                    <!-- Subtotal -->
                     <div class="row mb-3">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
@@ -71,6 +77,7 @@
                         </div>
                     </div>
 
+                    <!-- Tombol Aksi -->
                     <div class="row mb-3">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
@@ -84,13 +91,14 @@
         </div>
     </div>
 
+    <!-- Daftar Produk -->
     <div class="col-md-6">
-    <div class="card">
-        <div class="card-title p-4">
-            <h4><b>Daftar Produk</b></h4>
-        </div>
-        <div class="card-body">
-            <table class="table">
+        <div class="card">
+            <div class="card-title p-4">
+                <h4><b>Daftar Produk</b></h4>
+            </div>
+            <div class="card-body">
+                <table class="table" id="printableTable">
                     <tr>
                         <th>No</th>
                         <th>Nama Produk</th>
@@ -99,9 +107,7 @@
                         <th>#</th>
                     </tr>
 
-                    @foreach ($transaksi_detail as $item )
-
-
+                    @foreach ($transaksi_detail as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{ $item->produk_name}}</td>
@@ -112,36 +118,71 @@
                         </td>
                     </tr>
                     @endforeach
-            </table>
-            <a href="/admin/transaksi/detail/selesai/{{Request::segment(3)}}" class="btn btn-success"><i class="fas fa-check"></i> Selesai</a>
-            <a href="#" class="btn btn-warning"><i class="fas fa-print"></i> Print</a>
+                </table>
+                <h5>Total: Rp. {{format_rupiah($transaksi->total)}}</h5>
+                <h5>Tanggal: {{ \Carbon\Carbon::now()->format('d-m-Y') }}</h5>
+                <a href="/admin/transaksi/detail/selesai/{{Request::segment(3)}}" class="btn btn-success"><i class="fas fa-check"></i> Selesai</a>
+                <a href="#" class="btn btn-warning" onclick="printContent()"><i class="fas fa-print"></i> Print</a>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-title p-4">
-                    <h4><b>Kembalian</b></h4>
-                </div>
-                <div class="card-body">
-                    <form action="" method="GET">
-                        <div class="form-group">
-                            <label for="total">Total</label>
-                            <input type="number" value="{{$transaksi->total}}" name="total" class="form-control" disabled id="total">
-                        </div>
-                        <div class="form-group">
-                            <label for="bayar">Bayar</label>
-                            <input type="number" value="{{request('bayar')}}" name="bayar" class="form-control" id="bayar">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Hitung</button>
-                    </form>
-                    <hr>
+    <!-- Kembalian -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-title p-4">
+                <h4><b>Kembalian</b></h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="GET">
                     <div class="form-group">
-                        <label for="kembalian">Uang Kembalian</label>
-                        <input type="number" value="{{format_rupiah($kembalian)}}" disabled name="kembalian" class="form-control" id="kembalian">
+                        <label for="total">Total</label>
+                        <input type="number" value="{{$transaksi->total}}" name="total" class="form-control" disabled id="total">
                     </div>
+                    <div class="form-group">
+                        <label for="bayar">Bayar</label>
+                        <input type="number" value="{{request('bayar')}}" name="bayar" class="form-control" id="bayar">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Hitung</button>
+                </form>
+                <hr>
+                <div class="form-group">
+                    <label for="kembalian">Uang Kembalian</label>
+                    <input type="number" value="{{format_rupiah($kembalian)}}" disabled name="kembalian" class="form-control" id="kembalian">
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    function printContent() {
+        var printContents = `
+            <html>
+            <head>
+                <title>Print</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                            font-size: 12px;
+                            width: 80mm;
+                            margin: 0;
+                    }
+                </style>
+            </head>
+            <body>
+                ${document.getElementById('printableTable').outerHTML}
+                <h5>Total: Rp. {{format_rupiah($transaksi->total)}}</h5>
+                <h5>Tanggal: ${new Date().toLocaleDateString('id-ID')}</h5>
+            </body>
+            </html>
+        `;
+
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
+

@@ -5,12 +5,10 @@
                 <h4><b>Penjualan Hari Ini</b></h4>
             </div>
             <div class="card-body">
-                <form action="/admin/dashboard" method="GET">
-                    {{--  --}}
-                </form>
+                <h5>Total Penjualan Hari Ini: Rp </h5>
 
                 <table class="table table-bordered mt-4">
-                    <th>
+                    <thead>
                         <tr>
                             <th>No</th>
                             <th>ID Transaksi</th>
@@ -18,23 +16,23 @@
                             <th>Total</th>
                             <th>Tanggal Transaksi</th>
                         </tr>
-                    </th>
+                    </thead>
                     <tbody>
-                      
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>user</td>
-                            <td>54.000</td>
-                            <td>tangga hari ini</td>
-                        </tr>
+                        
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Rp</td>
+                                <td></td>
+                            </tr>
+                        
+                            <tr>
+                                <td colspan="5" class="text-center">Tidak ada transaksi hari ini.</td>
+                            </tr>
                         
                     </tbody>
                 </table>
-
-                <div class="mt-4">
-                    <h5><b>Total Penjualan: </b>Rp 54.000</h5>
-                </div>
             </div>
         </div>
     </div>

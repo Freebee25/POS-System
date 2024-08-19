@@ -24,14 +24,14 @@
                                 <i class="fas fa-sort"></i> Pilih Berdasarkan
                             </button>
                         </div>
-                        <div class="col">
+                        {{-- <div class="col">
                             <a href="#" class="btn btn-secondary">
                                 <i class="fas fa-file"></i> Detail Transaksi
                             </a>
-                        </div>
+                        </div> --}}
                         <div class="col">
                             <a href="#" class="btn btn-success">
-                                <i class="fas fa-download"></i> Download
+                                <i class="fas fa-download"></i> Export Ke
                             </a>
                         </div>
                     </div>
