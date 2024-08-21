@@ -63,7 +63,7 @@
                         <div class="col-md-8">
                             <div class="d-flex">
                                 <a href="?produk_id={{request('produk_id')}}&act=min&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-minus"></i></a>
-                                <input type="number" value="{{$jumlah_produk}}" class="form-control mx-2" disabled name="jumlah_produk">
+                                <input type="number" value="{{$jumlah_produk}}" class="form-control mx-2" name="jumlah_produk">
                                 <a href="?produk_id={{request('produk_id')}}&act=plus&jumlah_produk={{$jumlah_produk}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                             </div>
                         </div>
