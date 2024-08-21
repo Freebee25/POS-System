@@ -27,11 +27,9 @@ Route::post('/login/do', [AdminAuthController::class, 'dologin'])->middleware('g
 Route::get('/logout', [AdminAuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/', function () {
-    $data = [
-        'content' => 'admin.dashboard.index'
-    ];
-    return view('admin.layouts.wrapper', $data);
+    return redirect('/login');
 });
+
 
 Route::prefix('/admin')->middleware('auth')->group(function(){
     Route::get('/dashboard', function (){
