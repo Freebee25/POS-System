@@ -25,7 +25,7 @@ class AdminReportController extends Controller
         $total_penjualan = $query->sum('total');
 
         $data = [
-            'title' => 'Laporan Transaksi Harian',
+            'title' => 'Laporan Transaksi',
             'transaksi' => $transaksi,
             'total_penjualan' => $total_penjualan,
             'start_date' => $start_date->toDateString(),
@@ -36,42 +36,29 @@ class AdminReportController extends Controller
 
         return view('admin.layouts.wrapper', $data);
     }
-    
-    // public function show($id)
-    // {
-    //     $transaksi = Transaksi::with('items.product', 'kasir')->findOrFail($id);
 
-    //     $data = [
-    //         'title' => 'Detail Transaksi',
-    //         'transaksi' => $transaksi,
-    //         'content' => 'admin.report.detail',
-    //     ];
+    public function download(Request $request)
+    {
+        $start_date = $request->input('start_date', Carbon::today()->toDateString());
+    $end_date = $request->input('end_date', Carbon::today()->toDateString());
+    $sort = $request->input('sort', 'DESC');
 
-    //     return view('admin.layouts.wrapper', $data);
-    // }
+    $start_date = Carbon::parse($start_date)->startOfDay();
+    $end_date = Carbon::parse($end_date)->endOfDay();
+
+    $query = Transaksi::with('details')->whereBetween('created_at', [$start_date, $end_date]);
+
+    $transaksi = $query->orderBy('created_at', $sort)->get();
+    $total_penjualan = $query->sum('total');
+
+    $pdf = Pdf::loadView('admin.report.download', [
+        'transaksi' => $transaksi,
+        'total_penjualan' => $total_penjualan,
+        'start_date' => $start_date->toDateString(),
+        'end_date' => $end_date->toDateString(),
+    ]);
 
 
-    // public function download(Request $request)
-    // {
-    //     $start_date = $request->input('start_date');
-    //     $end_date = $request->input('end_date');
-
-    //     $query = Transaksi::query();
-
-    //     if ($start_date && $end_date) {
-    //         $query->whereBetween('created_at', [$start_date, $end_date]);
-    //     }
-
-    //     $transaksi = $query->orderBy('created_at', 'DESC')->get();
-    //     $total_penjualan = $query->sum('total');
-
-    //     $pdf = PDF::loadView('admin.report.download', [
-    //         'transaksi' => $transaksi,
-    //         'total_penjualan' => $total_penjualan,
-    //         'start_date' => $start_date,
-    //         'end_date' => $end_date,
-    //     ]);
-
-    //     return $pdf->download('laporan_transaksi.pdf');
-    // }
+        return $pdf->download('laporan_transaksi.pdf');
+    }
 }

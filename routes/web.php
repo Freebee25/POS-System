@@ -44,6 +44,7 @@ Route::prefix('/admin')->group(function(){
     Route::get('/transaksi/detail/selesai/{id}', [AdminTransaksiDetailController::class, 'done']);
     Route::get('/transaksi/detail/delete', [AdminTransaksiDetailController::class, 'delete']);
     Route::get('/report/detail/{id}', [AdminTransaksiDetailController::class, 'index'])->name('admin.report.detail');
+    Route::get('/report/download', [AdminReportController::class, 'download']);
     Route::post('/transaksi/detail/create', [AdminTransaksiDetailController::class, 'create']);
     Route::resource('/transaksi', AdminTransaksiController::class);
     Route::resource('/produk',AdminProdukController::class);

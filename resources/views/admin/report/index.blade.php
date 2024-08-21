@@ -30,8 +30,8 @@
                             </a>
                         </div> --}}
                         <div class="col">
-                            <a href="#" class="btn btn-success">
-                                <i class="fas fa-download"></i> Export Ke
+                            <a href="/admin/report/download" class="btn btn-success">
+                                <i class="fas fa-download"></i> Download
                             </a>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>ID Transaksi</th>
+                            {{-- <th>ID Transaksi</th> --}}
                             <th>Nama Kasir</th>
                             <th>Tanggal Transaksi</th>
                             <th>Nama Produk</th> 
@@ -53,7 +53,7 @@
                         @foreach($transaksi as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td><a href="{{ url('/admin/report/detail', $item->id) }}">{{ $item->id }}</a></td>
+                            {{-- <td><a href="{{ url('/admin/report/detail', $item->id) }}">{{ $item->id }}</a></td> --}}
                             <td>{{ $item->kasir_name }}</td>
                             <td>{{ $item->created_at->format('d-m-Y H:i:s') }}</td>
                             <td>
