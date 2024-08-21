@@ -45,7 +45,7 @@ class AdminKategoriController extends Controller
             'name'  => 'required|unique:kategoris'
         ]);
         Kategori::create($data);
-        return redirect()->back();
+        return redirect('admin/kategori');
     }
 
     /**

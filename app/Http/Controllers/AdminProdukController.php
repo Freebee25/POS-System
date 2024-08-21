@@ -61,7 +61,7 @@ class AdminProdukController extends Controller
         }
         
         Produk::create($data);
-        return redirect()->back();
+        return redirect('admin/produk');
     }
 
     /**

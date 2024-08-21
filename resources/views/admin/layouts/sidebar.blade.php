@@ -14,8 +14,7 @@
           <img src="/public/uploads/images/1721309483_0b62.jpg.jpg" class="img-circle elevation-2" alt="User Image">
         </div> --}}
         <div class="info">
-          <a href="#" class="d-block">kasir</a>
-          {{-- <a href="#" class="d-block">{{ Auth::user()->name }}</a> --}}
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
