@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AdminProdukController extends Controller
 {
@@ -61,6 +63,7 @@ class AdminProdukController extends Controller
         }
         
         Produk::create($data);
+        Alert::success('Success', 'Produk Telah Ditambahkan');
         return redirect('admin/produk');
     }
 
@@ -127,6 +130,7 @@ class AdminProdukController extends Controller
             unlink($produk->gambar);
         }       
         $produk->delete();
+        Alert::warning('Warning', 'Data Telah Dihapus');
         return redirect()->back();
     }
 }

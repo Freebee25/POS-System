@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
-use Illuminate\Console\View\Components\Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
+
 
 class AdminKategoriController extends Controller
 {
@@ -45,6 +46,7 @@ class AdminKategoriController extends Controller
             'name'  => 'required|unique:kategoris'
         ]);
         Kategori::create($data);
+        Alert::success('Success', 'Kategori Telah ditambahkan');
         return redirect('admin/kategori');
     }
 
@@ -92,6 +94,7 @@ class AdminKategoriController extends Controller
         //
         $kategori = Kategori::find($id);
         $kategori->delete();
+        Alert::warning('Warning', 'Data Telah Dihapus');
         return redirect()->back();
     }
 }

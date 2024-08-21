@@ -25,10 +25,10 @@
                             <td>
                                 <div class="d-flex">
                                     <a href="/admin/transaksi/{{ $item->id }}/edit" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                    <form action="/admin/transaksi/{{ $item->id }}" method="POST">
+                                    <form id="delete-form-{{ $item->id }}" action="/admin/transaksi/{{ $item->id }}" method="POST" style="display: inline;">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-danger btn-sm ml-1"><i class="fas fa-trash"></i></button>
+                                        <button type="button" onclick="confirmDeletion({{ $item->id }})" class="btn btn-danger btn-sm ml-1"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </div>
                             </td>
@@ -42,3 +42,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function confirmDeletion(transaksiId) {
+        if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+            document.getElementById('delete-form-' + transaksiId).submit();
+        }
+    }
+</script>

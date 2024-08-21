@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AdminUserController extends Controller
 {
@@ -50,6 +52,7 @@ class AdminUserController extends Controller
         $data['password'] = Hash::make($data['password']);
         
         User::create($data);
+        Alert::success('Sukses', 'Data telah ditambahkan');
         return redirect('/admin/user');
         
     }
@@ -108,6 +111,7 @@ class AdminUserController extends Controller
         //
         $user = User::find($id);
         $user->delete();
-        return redirect('admin/user')->with('success', 'Data berhasil dihapus');
+        Alert::warning('Warning', 'Data Telah Dihapus');
+        return redirect('admin/user');
     }
 }
