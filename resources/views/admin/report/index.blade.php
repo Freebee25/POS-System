@@ -38,28 +38,41 @@
                 </form>
 
                 <table class="table table-bordered mt-4">
-                    <th>
+                    <thead>
                         <tr>
                             <th>No</th>
                             <th>ID Transaksi</th>
                             <th>Nama Kasir</th>
-                            <th>Total</th>
                             <th>Tanggal Transaksi</th>
+                            <th>Nama Produk</th> 
+                            <th>Jumlah Produk</th> 
+                            <th>Total</th> 
                         </tr>
-                    </th>
+                    </thead>
                     <tbody>
                         @foreach($transaksi as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td><a href="{{ url('/admin/report/detail', $item->id) }}">{{ $item->id }}</a></td>
                             <td>{{ $item->kasir_name }}</td>
-                            <td>{{ number_format($item->total, 0, ',', '.') }}</td>
                             <td>{{ $item->created_at->format('d-m-Y H:i:s') }}</td>
+                            <td>
+                                @foreach($item->details as $detail)
+                                    {{ $detail->produk_name }}<br>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($item->details as $detail)
+                                    {{ $detail->jumlah_produk }}<br>
+                                @endforeach
+                            </td>
+                            <td>{{ number_format($item->total, 0, ',', '.') }}</td> 
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                {{ $transaksi->links() }}
+
+                {{ $transaksi->appends(request()->input())->links() }}
 
                 <div class="mt-4">
                     <h5><b>Total Penjualan: </b>Rp {{ number_format($total_penjualan, 0, ',', '.') }}</h5>

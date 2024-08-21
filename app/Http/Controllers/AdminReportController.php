@@ -12,15 +12,13 @@ class AdminReportController extends Controller
     public function index(Request $request)
     {
         
-         $start_date = $request->input('start_date', Carbon::today()->toDateString());
+        $start_date = $request->input('start_date', Carbon::today()->toDateString());
         $end_date = $request->input('end_date', Carbon::today()->toDateString());
         $sort = $request->input('sort', 'DESC'); 
         $start_date = Carbon::parse($start_date)->startOfDay();
         $end_date = Carbon::parse($end_date)->endOfDay();
 
-        $query = Transaksi::query();
-
-        $query->whereBetween('created_at', [$start_date, $end_date]);
+        $query = Transaksi::with('details')->whereBetween('created_at', [$start_date, $end_date]);
 
         $transaksi = $query->orderBy('created_at', $sort)->paginate(10);
 
